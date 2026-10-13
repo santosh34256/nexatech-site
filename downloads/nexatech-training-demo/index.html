@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexaTech Training Platform — Warehouse Safety Learning</title>
+<meta name="description" content="Interactive warehouse health and safety training: 360° hazard zones, PPE checks, emergency scenarios, assessment and supervisor tracking.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="../../index.html" aria-label="NexaTech Solution website">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 93,26 93,74 50,97 7,74 7,26" fill="none" stroke="#6FA0FF" stroke-width="6"/><path d="M32 71 L32 29 L43 29 L64 60 L64 29 L75 29 L75 71 L64 71 L43 40 L43 71 Z" fill="#6FA0FF"/></svg>
+      <span>Nexa<b>Tech</b> <em>Training Platform</em></span>
+    </a>
+    <div class="topbar-tools" role="group" aria-label="Display options">
+      <button type="button" class="icon-btn" id="sizeDown" aria-label="Decrease text size">A−</button>
+      <button type="button" class="icon-btn" id="sizeUp" aria-label="Increase text size">A+</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="contrast" aria-pressed="false">High contrast</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="shell">
+
+  <section id="login" class="login-wrap">
+    <div class="login-intro">
+      <p class="eyebrow">Warehouse safety learning</p>
+      <h1>Safer on day one.</h1>
+      <p class="lede">Explore realistic 360° hazard zones, practise choosing the right PPE, handle emergency scenarios and earn a verified certificate — all in your browser.</p>
+      <ul class="feature-list">
+        <li><span aria-hidden="true">🔄</span> 360° hazard-zone walkthroughs</li>
+        <li><span aria-hidden="true">🦺</span> PPE checks for each work area</li>
+        <li><span aria-hidden="true">🚨</span> Branching emergency scenarios</li>
+        <li><span aria-hidden="true">📊</span> Supervisor tracking &amp; reporting</li>
+      </ul>
+    </div>
+    <div class="login-cards">
+      <div class="card">
+        <h2>Sign in</h2>
+        <p class="muted">New here? Enter a name and password to create your account on this device.</p>
+        <form id="loginForm" novalidate>
+          <div class="field"><label for="name">Full name</label><input id="name" required minlength="2" autocomplete="username" placeholder="e.g. Alex Morgan"></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" required minlength="4" autocomplete="current-password" placeholder="At least 4 characters"></div>
+          <div class="field"><label for="role">Role (for new accounts)</label>
+            <select id="role"><option value="trainee">Trainee</option><option value="supervisor">Supervisor</option><option value="admin">Content administrator</option></select></div>
+          <p class="field-error" id="loginError" role="alert" aria-live="polite"></p>
+          <button class="btn btn-primary btn-block" type="submit">Sign in <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="quick">
+          <p class="muted">Or explore instantly as:</p>
+          <div class="quick-row">
+            <button type="button" class="btn btn-secondary btn-sm" data-demo="trainee">Trainee</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-demo="supervisor">Supervisor</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-demo="admin">Administrator</button>
+          </div>
+        </div>
+      </div>
+      <div class="card slim">
+        <h3>Verify a certificate</h3>
+        <form id="verifyForm" novalidate class="inline-form">
+          <label class="sr-only" for="certId">Certificate ID</label>
+          <input id="certId" placeholder="NXT-2026-3F9A12" autocomplete="off">
+          <button class="btn btn-secondary btn-sm" type="submit">Verify</button>
+        </form>
+        <div id="verifyResult" role="status" aria-live="polite"></div>
+      </div>
+      <p class="fineprint">Prototype: accounts, progress and content are stored in this browser only. Do not enter real employee data. Training content is illustrative and must be validated against your own site rules before real use.</p>
+    </div>
+  </section>
+
+  <section id="app" class="hidden">
+    <div id="storageWarn" class="banner warn hidden" role="alert">Your browser is blocking local storage (private mode?), so progress cannot be saved on this device.</div>
+    <div class="app-grid">
+      <aside class="side card" aria-label="Platform navigation">
+        <div class="who"><span class="avatar" aria-hidden="true">👤</span><div><b id="whoName"></b><small id="whoRole"></small></div></div>
+        <nav class="side-nav">
+          <ul>
+            <li><button type="button" data-view="overview" class="active"><span aria-hidden="true">🏠</span> Overview</button></li>
+            <li><button type="button" data-view="training"><span aria-hidden="true">🔄</span> My training</button></li>
+            <li><button type="button" data-view="emergency"><span aria-hidden="true">🚨</span> Emergency scenarios</button></li>
+            <li><button type="button" data-view="assessment"><span aria-hidden="true">📝</span> Final assessment</button></li>
+            <li><button type="button" data-view="records"><span aria-hidden="true">🏅</span> My records</button></li>
+            <li><button type="button" data-view="supervisor"><span aria-hidden="true">📊</span> Team dashboard</button></li>
+            <li><button type="button" data-view="admin"><span aria-hidden="true">⚙️</span> Administration</button></li>
+            <li><button type="button" data-view="guide"><span aria-hidden="true">📘</span> Safety guide</button></li>
+            <li><button type="button" data-view="report"><span aria-hidden="true">📣</span> Report a hazard</button></li>
+          </ul>
+        </nav>
+        <button type="button" class="btn btn-secondary btn-block" id="signOut">Sign out</button>
+      </aside>
+      <div class="views">
+        <section id="overview" class="view active"></section>
+        <section id="training" class="view"></section>
+        <section id="emergency" class="view"></section>
+        <section id="assessment" class="view"></section>
+        <section id="records" class="view"></section>
+        <section id="supervisor" class="view"></section>
+        <section id="admin" class="view"></section>
+        <section id="guide" class="view"></section>
+        <section id="report" class="view"></section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<dialog id="confirmDialog" class="dialog"><p data-msg></p><div class="btn-row"><button class="btn btn-secondary" data-cancel>Cancel</button><button class="btn btn-danger" data-ok>Confirm</button></div></dialog>
+
+<script src="js/content.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/platform-core.js"></script>
+<script src="js/platform-trainee.js"></script>
+<script src="js/platform-staff.js"></script>
+<script src="js/platform-app.js"></script>
+</body>
+</html>
